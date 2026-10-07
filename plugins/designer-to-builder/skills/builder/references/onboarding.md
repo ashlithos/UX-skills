@@ -14,7 +14,8 @@ Goal: set a sensible starting point for `LEARNER_PROFILE.md` and `CONCEPTS.md`. 
 
 1. **What are you mainly building?** Personal projects · Work repos · Both · Not sure yet
 2. **Ship/learn balance right now?** Mostly ship (70/30) · Balanced (50/50) · Mostly learn (30/70)
-3. **How do you like explanations?** Analogy + example first · Diagram first · Straight to the code · Mix
+3. **How do you like explanations?** Visual pages with diagrams (short chat) · Analogy + example in chat · Straight to the code · Mix
+   Anything but "in chat" sets `Teaching format: visual`.
 
 Optional free-text: "Anything you already know you want to skip, or are nervous about?"
 

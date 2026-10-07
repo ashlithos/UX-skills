@@ -88,7 +88,7 @@ Teach the habit: **disproportion is a smell.** A minor interaction change that n
 - Use the company's tooling, scripts, and branch/PR conventions
 - Respect CODEOWNERS and required reviews; never suggest bypassing hooks, CI, or approvals
 - Keep proprietary code, data, credentials, internal URLs, and confidential context inside the approved environment. Don't paste them into external tools or services unless explicitly permitted
-- Keep `.builder/` local (`.git/info/exclude`); never commit learner files
+- Keep `.builder/` local: it contains a `.gitignore` with `*`, so git never sees it. Never commit learner files
 - When unsure whether something is allowed, assume not and recommend checking
 
 ## 5. Asking engineers high-information questions

@@ -39,6 +39,24 @@ I'm a product designer learning to build. For coding work, use the builder skill
 
 Type `/builder` (or `/designer-to-builder:builder` if another command is already called `builder`). It offers a 5-minute, scenario-based calibration. You can skip it and start with beginner defaults.
 
+## Visual lessons
+
+Explanations come as a **step-by-step lesson page**, with a sidebar outline, a progress bar, and Back/Next buttons. The chat stays to about 5 lines.
+
+Every lesson follows the same 7 steps:
+
+1. **Overview:** how your change went, how it fits the codebase, the structure of your change (CL), and the one small thing to learn next, and why
+2. **Goal:** what you'll be able to explain, a warm-up from last time, and a quick guess
+3. **Key words:** 2–3 terms in plain language
+4. **How it works:** a simple step diagram
+5. **The code:** before/after, explained line by line
+6. **Check yourself:** one question, with an explanation for every answer
+7. **Wrap up:** what you can do now, what's left before shipping, your progress
+
+The structure follows learning research: short self-paced steps, guessing before learning, worked examples, quizzes that explain each answer, and spaced review. See `references/teaching.md` §8. Sample content: `skills/builder/templates/lesson-content.sample.html` (built into a page by `scripts/build-lesson.sh`). Prefer text? Set `Teaching format: chat` in your profile.
+
+Pages go to `.builder/lessons/` in the project. In personal projects with claude.ai, they're also published as private Artifacts. Pages from work repos stay on your machine.
+
 ## Controls
 
 Type `/builder <mode>`, or just say it in plain words.
@@ -67,7 +85,8 @@ Type `/builder <mode>`, or just say it in plain words.
 | `LEARNER_PROFILE.md` | `~/.claude/designer-to-builder/` | Your level, ship/learn ratio, preferences. You own it. |
 | `CONCEPTS.md` | same | ~60 concepts, each `[ ]` not learned, `[~]` learning, or `[x]` comfortable. You graduate them. |
 | `LEARNING_LOG.md` | same | 5 lines per session, plus a "next time, explain" warm-up question |
-| `BUILD_MAP.md` | `.builder/` in the project | Temporary map for a meaningful change; git-excluded, never committed |
+| `BUILD_MAP.md` | `.builder/` in the project | Temporary map for a meaningful change; never committed |
+| Lesson pages | `.builder/lessons/` in the project | Visual lesson for each task. `.builder/` ignores itself in git |
 
 Set `BUILDER_HOME` to store state somewhere else, for example a synced folder.
 
@@ -88,15 +107,19 @@ skills/builder/
 ├── SKILL.md                     always-on core rules (loaded when the skill triggers)
 ├── references/                  loaded only when needed
 │   ├── onboarding.md            calibration flow + scenarios
-│   ├── teaching.md              explanation shape, analogy bank, quizzes, autonomy stages
+│   ├── teaching.md              explanation shape, analogy bank, quizzes, autonomy stages, learning science
 │   ├── review.md                diff walkthrough, gauntlet, validation report, explainability, retro
 │   ├── recon-risk-scope.md      recon checklist, GREEN/YELLOW/RED, scope alarm, engineer questions
 │   └── examples.md              beginner, intermediate, and production-repo examples
-└── templates/
-    ├── LEARNER_PROFILE.md
-    ├── CONCEPTS.md
-    ├── LEARNING_LOG.md
-    └── BUILD_MAP.md
+├── templates/
+│   ├── LEARNER_PROFILE.md
+│   ├── CONCEPTS.md
+│   ├── LEARNING_LOG.md
+│   ├── BUILD_MAP.md
+│   ├── lesson-shell.html        lesson layout: styles, navigation, progress, quiz behavior
+│   └── lesson-content.sample.html  sample 7-step lesson content
+└── scripts/
+    └── build-lesson.sh          wraps lesson content in the shell → a finished page
 ```
 
 ## Using it with other coding agents

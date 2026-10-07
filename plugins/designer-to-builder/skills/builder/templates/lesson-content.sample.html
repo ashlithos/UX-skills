@@ -1,0 +1,191 @@
+<!--
+  SAMPLE LESSON CONTENT. Write your own file in this shape, then run scripts/build-lesson.sh.
+  - Same 7 steps, same order: Overview · Goal · Key words · How it works · The code · Check yourself · Wrap up.
+    Each is <section class="step" id="..." data-title="...">. Navigation builds itself from these.
+  - Overview ALWAYS has: 1 How it went · 2 How it fits the codebase · 3 Structure of your change (CL) · 4 Today's lesson (+ why).
+  - Reuse these classes exactly (box, score/lvl, tree, fit, flow, choices/choice, data-guess, data-quiz + data-feedback,
+    terms, tabs/pane, code (.a added, .d removed, .m number), callouts, can, ship/st, chips, next-q). The shell styles them.
+  - Plain, warm words. At most 2 lines per paragraph. Never invent results.
+-->
+<!-- STEP 1 · Overview (ALWAYS, same four parts in this order):
+         1 How it went: honest review of the last change on 4 rows (Strong / OK / Needs work + one line of evidence each).
+         2 Codebase fit: your reading of the relevant code and how well the change fits its patterns.
+         3 Structure of the change (CL): files and how they connect.
+         4 Today's lesson: the ONE small concept that addresses the biggest gap in part 1, and why. -->
+    <section class="step" id="overview" data-title="Overview">
+      <span class="eyebrow">Step 1 · Overview</span>
+      <h2>Show a message when search finds nothing</h2>
+      <div class="meta"><span>About 5 min</span><span>Small change</span><span>1 file</span></div>
+
+      <div class="box">
+        <h3><span class="num-dot">1</span>How it went</h3>
+        <p class="verdict">Solid first pass. The empty state works, but loading isn't handled yet.</p>
+        <ul class="score">
+          <li><span>Did what you asked</span><span class="lvl good">Strong</span><small>Empty searches now say “No results for zzz”</small></li>
+          <li><span>Right size</span><span class="lvl good">Strong</span><small>3 lines in 1 file, no new packages</small></li>
+          <li><span>Covers every screen state</span><span class="lvl work">Needs work</span><small>“Still loading” would also show “No results”</small></li>
+          <li><span>Checked it works</span><span class="lvl ok">Not yet</span><small>Not tried in the browser, and there are no tests</small></li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h3><span class="num-dot">2</span>How it fits the codebase</h3>
+        <pre class="tree"><span>src/</span>
+<span> ├─ SearchPage.jsx    <em>remembers the search, filters items</em></span>
+<span> └─ ResultsList.jsx   <em>just draws the list it's given</em></span></pre>
+        <ul class="fit">
+          <li class="yes"><b>Fits:</b> the message sits in SearchPage, the file that already knows what you typed.</li>
+          <li class="yes"><b>Fits:</b> ResultsList stays simple. It only draws, which matches how it's built now.</li>
+          <li class="meh"><b>Watch:</b> the app has no shared empty-state component yet, so the message is a plain line of text.</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h3><span class="num-dot">3</span>Structure of your change (CL)</h3>
+        <ol class="flow compact">
+          <li><span class="dot">1</span><div class="card"><code>SearchPage.jsx</code><small>Checks if there are zero results, then shows the message or the list (+3 −1)</small></div></li>
+          <li><span class="dot">·</span><div class="card"><code>ResultsList.jsx</code><small>Unchanged. Still receives the results and draws them</small></div></li>
+        </ol>
+      </div>
+
+      <div class="box lesson-pick">
+        <h3><span class="num-dot">4</span>Today's lesson</h3>
+        <p class="pick">Screen states: <b>loading → error → empty → results</b></p>
+        <p class="muted"><b>Why this one:</b> the biggest gap above is that “still loading” and “nothing found” look the same. Learning the four states fixes that here and in every screen you build.</p>
+      </div>
+    </section>
+
+    <!-- STEP 2 · Goal: the objective as a question, a warm-up from last time (if any), and a guess before teaching (no answer shown here). -->
+    <section class="step" id="goal" data-title="Goal">
+      <span class="eyebrow">Step 2 · Goal</span>
+      <h2>What you'll be able to do</h2>
+      <div class="box goal">
+        <span class="muted">By the end, you'll be able to explain:</span>
+        <p>How a screen decides what to show: loading, an error, an empty message, or the results.</p>
+      </div>
+      <div class="box">
+        <h3>Warm-up from last time</h3>
+        <p class="muted">Answer in your head first, then peek.</p>
+        <details><summary>Why does dark mode reset when you refresh the page?</summary><p class="muted">Because it was stored in state, the app's short-term memory. Refreshing clears it unless we save it somewhere.</p></details>
+      </div>
+      <div class="box">
+        <h3>Quick guess</h3>
+        <p class="muted">No pressure, there's no wrong answer yet. We'll come back to it in step 6.</p>
+        <div class="choices" data-guess="g1">
+          <button class="choice" type="button" aria-pressed="false"><span class="k">A</span>The list shows the message itself when it's empty</button>
+          <button class="choice" type="button" aria-pressed="false"><span class="k">B</span>The page checks the results and picks what to show</button>
+          <button class="choice" type="button" aria-pressed="false"><span class="k">C</span>The browser shows it automatically</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3 · Key words: 2–3 terms max, each with a plain meaning and an everyday comparison. -->
+    <section class="step" id="words" data-title="Key words">
+      <span class="eyebrow">Step 3 · Key words</span>
+      <h2>Three words you'll see</h2>
+      <dl class="terms">
+        <div class="term"><dt>State</dt><dd>What the app is remembering right now, like what you typed in the search box.</dd><dd class="like">Like a sticky note the page keeps, and it redraws when the note changes.</dd></div>
+        <div class="term"><dt>Loading state</dt><dd>What the screen shows while it waits for data to arrive.</dd><dd class="like">Like a “saving…” spinner. The answer isn't ready, but the screen tells you it's working.</dd></div>
+        <div class="term"><dt>Conditional rendering</dt><dd>Showing different things depending on a condition.</dd><dd class="like">Like switching a component between its Empty and Filled variants.</dd></div>
+      </dl>
+    </section>
+
+    <!-- STEP 4 · How it works: 3–5 steps from user action to result. Labels live inside the diagram. Mark the changed step with class="new". -->
+    <section class="step" id="how" data-title="How it works">
+      <span class="eyebrow">Step 4 · How it works</span>
+      <h2>What happens when you type</h2>
+      <ol class="flow">
+        <li><span class="dot">1</span><div class="card">You type “zzz” in the search box<small>The input</small></div></li>
+        <li><span class="dot">2</span><div class="card">The page remembers it<small>State called <code>query</code>, in SearchPage</small></div></li>
+        <li><span class="dot">3</span><div class="card">Items are filtered by what you typed<small>The matches are called <code>results</code></small></div></li>
+        <li class="new"><span class="dot">4</span><div class="card"><span>The page checks: any matches? <span class="badge">New</span></span><small>Yes → show the list. No → show “No results for zzz”</small></div></li>
+      </ol>
+    </section>
+
+    <!-- STEP 5 · The code: worked example. Number each important line and explain it below.
+         Stage 2 learners: replace one callout with a question in <details> ("What do you think line 2 does?"). Stage 3: let them explain all of it. -->
+    <section class="step" id="change" data-title="The code">
+      <span class="eyebrow">Step 5 · The code</span>
+      <h2>Three new lines in one file</h2>
+      <div class="tabs" role="tablist" aria-label="Code version">
+        <button type="button" role="tab" aria-selected="false" aria-controls="before">Before</button>
+        <button type="button" role="tab" aria-selected="true" aria-controls="after">After</button>
+      </div>
+      <div id="before" role="tabpanel" class="pane" hidden>
+        <pre class="code"><span class="c">// SearchPage.jsx</span>
+<span>&lt;input … /&gt;</span>
+<span class="d">&lt;ResultsList results={results} /&gt;</span></pre>
+      </div>
+      <div id="after" role="tabpanel" class="pane">
+        <pre class="code"><span class="c">// SearchPage.jsx</span>
+<span>&lt;input … /&gt;</span>
+<span class="a">{results.length === 0<i class="m">1</i></span>
+<span class="a">  ? &lt;p&gt;No results for "{query}"&lt;/p&gt;<i class="m">2</i></span>
+<span class="a">  : &lt;ResultsList results={results} /&gt;}<i class="m">3</i></span></pre>
+      </div>
+      <ol class="callouts">
+        <li><span class="m">1</span><p><b>The question:</b> are there zero results?</p></li>
+        <li><span class="m">2</span><p><b>If yes</b> (after the <code>?</code>): show the message, using what you typed.</p></li>
+        <li><span class="m">3</span><p><b>Otherwise</b> (after the <code>:</code>): show the list, same as before.</p></li>
+      </ol>
+      <div class="box">
+        <h3>Files changed</h3>
+        <ul class="files"><li><code>src/SearchPage.jsx</code><span class="num"><span class="p">+3</span> <span class="mi">−1</span></span></li></ul>
+        <p class="muted">Nothing else was touched. No new packages.</p>
+      </div>
+    </section>
+
+    <!-- STEP 6 · Check yourself: one question, feedback for EVERY option explaining why. Then reveal their guess from step 1. Then an optional "your own words" prompt. -->
+    <section class="step" id="check" data-title="Check yourself">
+      <span class="eyebrow">Step 6 · Check yourself</span>
+      <h2>Quick check</h2>
+      <div class="box">
+        <h3>If the results came from a server, what would people see while waiting?</h3>
+        <div class="choices" data-quiz>
+          <button class="choice" type="button" data-feedback="Not quite. The list isn't ready yet, so there's nothing to show."><span class="k">A</span>The full list</button>
+          <button class="choice" type="button" data-correct data-feedback="Right. While loading, results is empty, so the page shows “No results” for a moment. That's why real apps check loading first: loading → error → empty → results."><span class="k">B</span>A quick flash of “No results”</button>
+          <button class="choice" type="button" data-feedback="Not quite. The page always shows something. Here it would show the empty message, because results starts empty."><span class="k">C</span>A blank page</button>
+        </div>
+        <p class="feedback" aria-live="polite"></p>
+      </div>
+      <div class="box">
+        <h3>Your guess from step 2</h3>
+        <p data-show-guess="g1" class="muted">You didn't make a guess, and that's fine.</p>
+        <p>The answer is <b>B</b>: the page checks the results and picks what to show.</p>
+      </div>
+      <div class="box">
+        <h3>Say it in your own words <span class="muted">(optional)</span></h3>
+        <label class="muted" for="explain">Why does the message live in SearchPage and not in ResultsList? Only you see this.</label>
+        <textarea id="explain" placeholder="Because…"></textarea>
+      </div>
+    </section>
+
+    <!-- STEP 7 · Wrap up: what you can do now, honest ship checks, progress, the next-time question (also saved to LEARNING_LOG.md). -->
+    <section class="step" id="wrap" data-title="Wrap up">
+      <span class="eyebrow">Step 7 · Wrap up</span>
+      <h2>Nice work. Here's what you've got.</h2>
+      <div class="box">
+        <h3>You can now</h3>
+        <ul class="can">
+          <li><span class="tick">✓</span><p>Spot where a screen picks between states</p></li>
+          <li><span class="tick">✓</span><p>Read <code>a ? b : c</code> as “if a, show b, otherwise c”</p></li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Before you ship</h3>
+        <ul class="ship">
+          <li><span>Only the expected file changed</span><span class="st ok">Done</span><small>Checked in the diff</small></li>
+          <li><span>Try it in the browser</span><span class="st todo">Your turn</span><small>Type “zzz”, then clear the box</small></li>
+          <li><span>Automatic tests</span><span class="st todo">None yet</span><small>This project doesn't have any</small></li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Your progress</h3>
+        <div class="chips"><span class="up">Conditional rendering · learning ↑</span><span>State · learning</span><span>Components · comfortable</span></div>
+      </div>
+      <div class="box next-q">
+        <span class="eyebrow">Next time, explain from memory</span>
+        <p>Why does the message live in SearchPage and not in ResultsList?</p>
+      </div>
+      <div class="cmds"><span>Want more?</span><code>/builder teach</code><code>/builder why</code><code>/builder quiz</code></div>
+    </section>

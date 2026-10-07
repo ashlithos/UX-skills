@@ -10,6 +10,7 @@ The test for every explanation: **will this make them more capable in session 20
 5. Progressive autonomy
 6. Graduation
 7. Anti-patterns
+8. The learning science behind the lesson page
 
 ## 1. Explanation shape
 
@@ -20,7 +21,7 @@ The test for every explanation: **will this make them more capable in session 20
 > Here, `SearchPage.tsx:42` passes `selected={filter}` into `<FilterChip>`, so the chip just *displays* what the page tells it.
 > Remember: **data flows down through props; the child doesn't own it.**
 
-Use a visual when there are three or more moving parts:
+In visual format, this becomes a concept card on the lesson page (`templates/lesson-content.sample.html`), and a structure becomes a flow or tree section there. In chat format, use a visual when there are three or more moving parts:
 
 ```
 SearchPage   ← owns `filter` (state)
@@ -33,7 +34,9 @@ Before/after excerpts beat prose for changes. Keep excerpts under ~15 lines and 
 
 ## 2. Choosing what to teach
 
-Teach it if it's at least two of: **architecturally important** · **recurring** across frontend work · **needed to understand this change** · **corrects a wrong mental model** they just revealed.
+**First choice: the root cause of the biggest gap in this change.** If "How it went" shows that loading wasn't handled, teach screen states, not whatever term appeared first. A lesson that fixes what just went wrong is relevant, memorable, and immediately useful. If nothing went wrong, teach the most reusable idea in the change.
+
+Otherwise, teach it if it's at least two of: **architecturally important** · **recurring** across frontend work · **needed to understand this change** · **corrects a wrong mental model** they just revealed.
 
 Skip: syntax trivia, tool config, anything COMFORTABLE (unless subtle), anything irrelevant to this change. One concept explained well beats four mentioned.
 
@@ -111,3 +114,24 @@ Ask, don't assume: "You've reasoned about state ownership correctly in two sessi
 - "Great question!" filler and other praise inflation
 - Making them type code AI can reasonably write
 - Turning every task into a design critique
+
+## 8. The learning science behind the lesson page
+
+Each part of the 7-step lesson applies a research-backed principle. Keep the principle intact when you adapt a lesson.
+
+| Principle (source) | What it says | Where it lives in the lesson |
+|---|---|---|
+| Feedback on real work | Learning sticks when it's tied to what you just did | Overview: how it went → the lesson fixes the biggest gap |
+| Objectives up front + pretesting | Knowing the goal, and guessing before being taught, both improve learning. Feedback on the guess *reduces* the benefit, so delay the answer | Goal: "you'll be able to explain…" + a quick guess, revealed in step 6 |
+| Pre-training (Mayer) | Learning the names of key parts first frees attention for how they work | Key words: 2–3 terms before the walkthrough |
+| Segmenting (Mayer) | User-paced chunks beat one continuous block | One step at a time, with Back/Next and an outline |
+| Signaling + coherence (Mayer) | Highlight the structure, cut everything extra | Same 7 steps every time; one highlighted "new" step; no decoration |
+| Spatial contiguity + dual coding | Put words next to the picture they describe | Labels inside the flow diagram; numbered code lines with callouts right below |
+| Worked examples, with fading | Beginners learn faster from worked solutions. Remove steps as skill grows | Step 5 explains every line at stage 1; leaves one for them to predict at stage 2; they explain at stage 3 |
+| Retrieval practice + explanatory feedback | Recalling beats rereading. Feedback should explain why, not just say right/wrong | Step 6: one question, with an explanation for every option |
+| Self-explanation | Saying it in your own words deepens understanding | Optional "say it in your own words" box |
+| Spaced practice + interleaving | Reviewing after a gap, mixed with older topics, beats cramming one topic | Warm-up from the last session; every 5th session a mixed review |
+| Visible progress + consistency (ADHD-friendly) | Knowing where you are and what's left reduces overwhelm; a predictable layout lowers mental load | Progress bar, "Step 2 of 7", checkmarks in the outline, about 5 minutes per lesson |
+| Personalization (Mayer) | A conversational "you" voice works better than formal text | Plain, warm wording throughout |
+
+Sources: Mayer, *Multimedia Learning* (segmenting, signaling, coherence, pre-training, contiguity, personalization); Roediger & Karpicke (retrieval practice); Sweller (worked examples, fading); the pretest and learning-objectives studies in *CBE—Life Sciences Education* (2020); Chi (self-explanation); Dunlosky et al. (spacing, interleaving); Nielsen Norman Group (people scan, so give them visible structure and progress).

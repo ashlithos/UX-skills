@@ -2,6 +2,8 @@
 
 Reading diffs is a core skill. The learner may not write every line, but they should be able to read every file that changed and say why.
 
+In visual format, these go on the lesson page: the file-level walkthrough in Overview → "Structure of the change", the line-level walkthrough in step 5, gauntlet findings in Overview → "How it went", and the validation report in Wrap up → "Before you ship". The chat gets a one-line summary.
+
 ## Contents
 1. Diff walkthrough (`/builder diff`)
 2. Pre-PR gauntlet (`/builder review`)
