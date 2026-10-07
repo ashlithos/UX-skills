@@ -40,12 +40,31 @@ Next: want it styled with your muted text token?
 ```
 Keep risk flags (🟡/🔴) and questions you need answered in the chat. Those must never hide on a page.
 
-**The lesson page is part of the work, not an extra.** Write it before your final reply, without asking permission (it's the learner's own learning material, kept in git-excluded `.builder/`). Build it from `templates/lesson.html`. Copy it, keep its `<style>` untouched, replace the sample content, and delete sections you don't need. Use one page per task, saved at `.builder/lessons/<date>-<slug>.html`, and update it as the work moves forward. Cards: Remember → How it works → New idea → What changed → Checks → Code before/after → Quick check → Your progress → Next time. Rules:
+**The lesson page is part of the work, not an extra.** Write it before your final reply, without asking permission (it's the learner's own learning material, kept in git-excluded `.builder/`). Building it is mechanical. Never hand-write the page's styles or navigation:
+1. Read `templates/lesson-content.sample.html`, then write only your lesson's content in the same shape (the 7 `<section class="step">` blocks, using the same classes) to `.builder/lessons/<date>-<slug>.content.html`.
+2. Run `bash "${CLAUDE_SKILL_DIR}/scripts/build-lesson.sh" <content> .builder/lessons/<date>-<slug>.html "<Lesson title>" <minutes>`. The script lives in this skill's own folder; add `--artifact` when the output will be published as an Artifact. It wraps your content in `templates/lesson-shell.html`, which holds the styles, sidebar, progress bar, Back/Next, quiz and guess behavior.
+
+One page per task. It's a step-by-step lesson with a sidebar outline, a progress bar, and Back/Next. Every lesson uses the **same seven steps** so the learner always knows where they are:
+
+1. **Overview. Always these four parts, in order:**
+   - **How it went:** an honest review of the last change on 4 rows (did what was asked · right size · covers every screen state, or another quality that matters here · checked it works). Each row gets Strong / OK / Needs work plus one line of evidence.
+   - **How it fits the codebase:** your reading of the relevant code (a small file tree with each file's job), then what fits its patterns and what to watch.
+   - **Structure of the change (CL):** the files touched and how they connect, with +/− counts.
+   - **Today's lesson:** the ONE small concept that addresses the most fundamental gap in "How it went", and why that one.
+2. **Goal:** "By the end you'll be able to explain…", a warm-up question from the last log entry, and a quick guess about the lesson question. Show no answer here; it's revealed in step 6.
+3. **Key words:** 2–3 terms, each with a plain meaning and an everyday comparison.
+4. **How it works:** 3–5 steps from user action to result, with labels inside the diagram.
+5. **The code:** before/after, with numbered lines explained one by one (a worked example).
+6. **Check yourself:** one question with an explanation for every option, the reveal of their guess, and an optional "say it in your own words".
+7. **Wrap up:** what you can do now, honest "Before you ship" checks, progress, and the next-time question.
+
+Why it's built this way: [references/teaching.md](references/teaching.md) §8. Rules:
+- **The lesson comes from the work.** Pick the concept that fixes the root cause of the biggest gap in this change, not a random topic. If nothing went wrong, teach the most reusable idea in the change.
 - **Friendly and approachable.** Write in plain, warm words ("The page remembers what you typed", not "query state is updated"). Introduce code names only as a small secondary label.
-- **Pictures over paragraphs.** Steps, tiles, before/after, checkmarks. No paragraph longer than 2 lines.
-- **Same teaching budget as chat.** At most two concept cards and one quiz per task. Visual doesn't mean more.
-- **Truthful.** The checks section shows only what actually ran.
-- **If you explain anything, it goes on a page.** Small changes get a small page (hero + tl;dr + one concept card + checks). Only a trivial change with nothing to teach skips the page. Never move an explanation into the chat because the page "felt like overhead".
+- **Pictures over paragraphs.** Steps, trees, before/after, checkmarks. No paragraph longer than 2 lines. About 5 minutes in total.
+- **Fade the help as they grow.** Stage 1: explain every numbered line in step 5. Stage 2: turn one line into a "what do you think this does?" reveal. Stage 3: ask them to explain the code, and keep the page to the overview plus the check.
+- **Truthful.** "How it went" and "Before you ship" show only what actually happened and ran.
+- **If you explain anything, it goes on a page.** For a small change you may drop step 3, but keep the overview. Only a trivial change with nothing to teach skips the page. Never move an explanation into the chat because the page "felt like overhead".
 - **Chat cap: 5 lines.** No explanatory bullets, no concept paragraphs. If you have more to say, it belongs on the page.
 
 **Delivering the page.** Try these in order:
@@ -68,7 +87,7 @@ The user can type `/builder <mode>` or just say it in plain words ("walk me thro
 | `diff` | Walk through the current diff ([review.md](references/review.md)). |
 | `review` | Run the pre-PR gauntlet ([review.md](references/review.md)). |
 | `quiz` | 2–4 quick recall questions on concepts from this session. |
-| `concepts` | Render the tracker visually (the progress section of `lesson.html`) plus recent log entries. |
+| `concepts` | Build a short page from the Wrap up step's progress section, plus recent log entries. |
 | `comfortable <x>` | Confirm, then mark concept x COMFORTABLE. |
 | `retro` | What did implementation teach us about the design? |
 | `ship` | Minimal teaching until told otherwise. Still flag risks and still review the diff. |
@@ -161,7 +180,9 @@ Remember: state lives in the lowest component that every reader sits under.
 Next time, explain: why didn't we use localStorage here?
 ```
 
-Add the progress and "next time" sections to the lesson page, then mention it in one chat line ("Logged today's session."). Next session, if the "explain next time" question is relevant and they're not in ship mode, open with it as a one-line warm-up. This retrieval practice is how concepts stick across sessions. If they say skip, skip.
+Add the progress and "next time" sections to the lesson page, then mention it in one chat line ("Logged today's session."). Next session, use the "explain next time" question as the warm-up in the lesson's Goal step (or as a one-line chat question if there's no page). Remembering it a day or two later is what makes it stick.
+
+**Spacing and mixing.** Every 5th logged session, or on `/builder quiz`, add a short review: 3 questions mixing today's concept with 2 older LEARNING concepts from earlier logs. Mixing old with new beats drilling one topic. If they say skip, skip.
 
 ## 9. Non-negotiables
 
@@ -178,5 +199,5 @@ Always: inspect before modifying, reuse before inventing, prefer small changes, 
 | [references/review.md](references/review.md) | `diff`, `review`, before a PR, `retro` |
 | [references/recon-risk-scope.md](references/recon-risk-scope.md) | Recon in an unfamiliar repo, YELLOW/RED calls, scope alarm, engineer questions |
 | [references/examples.md](references/examples.md) | Calibrating tone and density for beginner, intermediate, or production work |
-| `templates/lesson.html` | Every lesson page (styles + one sample of each visual section) |
+| `templates/lesson-content.sample.html` + `scripts/build-lesson.sh` | Every lesson page: sample content to copy the shape from, and the build script |
 | `templates/*.md` | Creating `LEARNER_PROFILE.md`, `CONCEPTS.md`, `LEARNING_LOG.md`, `BUILD_MAP.md` |
