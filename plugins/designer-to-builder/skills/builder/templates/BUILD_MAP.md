@@ -1,6 +1,6 @@
 # BUILD MAP: <feature / change>
 
-> Temporary working doc for this change. Lives in `.builder/` (git-excluded). Delete when the PR merges.
+> Temporary working doc for this change. Lives in `.builder/`, which ignores itself in git. Delete when the PR merges.
 > Status: [ ] mapped · [ ] implemented · [ ] diff reviewed · [ ] validated · [ ] PR opened
 
 ## Product intent

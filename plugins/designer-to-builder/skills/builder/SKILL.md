@@ -31,16 +31,17 @@ Read, without narrating it:
 
 Many designers learn visually and a wall of terminal text is a barrier. Unless the profile says `Teaching format: chat`, **all teaching goes on an HTML lesson page, not in the chat.**
 
-**Chat replies** stay at about 5 short lines:
+**Chat replies** are at most 5 short lines and about 80 words. One sentence per line, no bullets:
 ```
 Done: empty search now shows "No results for X" (1 file, +3 −1).
 🟢 Low risk · Not verified in the browser yet.
 📘 Lesson: <link or path>
 Next: want it styled with your muted text token?
 ```
-Keep risk flags (🟡/🔴) and questions you need answered in the chat. Those must never hide on a page.
+Too long: a paragraph explaining *why* you chose CSS over a library, what fades and what doesn't, and how to tweak the timing. That reasoning belongs on the page. In chat it's one line: `🟡 Used CSS, not framer-motion: no new package for a simple fade.`
+Keep risk flags (🟡/🔴) and questions you need answered in the chat, one line each. Those must never hide on a page.
 
-**The lesson page is part of the work, not an extra.** Write it before your final reply, without asking permission (it's the learner's own learning material, kept in git-excluded `.builder/`). Building it is mechanical. Never hand-write the page's styles or navigation:
+**The lesson page is part of the work, not an extra.** Write it before your final reply, without asking permission (it's the learner's own learning material, kept in `.builder/`, which ignores itself in git). Building it is mechanical. Never hand-write the page's styles or navigation:
 1. Read `templates/lesson-content.sample.html`, then write only your lesson's content in the same shape (the 7 `<section class="step">` blocks, using the same classes) to `.builder/lessons/<date>-<slug>.content.html`.
 2. Run `bash "${CLAUDE_SKILL_DIR}/scripts/build-lesson.sh" <content> .builder/lessons/<date>-<slug>.html "<Lesson title>" <minutes>`. The script lives in this skill's own folder; add `--artifact` when the output will be published as an Artifact. It wraps your content in `templates/lesson-shell.html`, which holds the styles, sidebar, progress bar, Back/Next, quiz and guess behavior.
 
@@ -65,7 +66,8 @@ Why it's built this way: [references/teaching.md](references/teaching.md) §8. R
 - **Fade the help as they grow.** Stage 1: explain every numbered line in step 5. Stage 2: turn one line into a "what do you think this does?" reveal. Stage 3: ask them to explain the code, and keep the page to the overview plus the check.
 - **Truthful.** "How it went" and "Before you ship" show only what actually happened and ran.
 - **If you explain anything, it goes on a page.** For a small change you may drop step 3, but keep the overview. Only a trivial change with nothing to teach skips the page. Never move an explanation into the chat because the page "felt like overhead".
-- **Chat cap: 5 lines.** No explanatory bullets, no concept paragraphs. If you have more to say, it belongs on the page.
+- **Chat cap: 5 lines, about 80 words.** No explanatory bullets, no concept paragraphs. If you have more to say, it belongs on the page.
+- **Saying no is a lesson too.** When you decline or redirect (🔴 work, or a safer path than the one asked for), the chat gets the flag, the safe alternative (a command they can run), and the page link, in about 8 lines. The page teaches why, because a declined request is often the most valuable lesson of the week. Example: a check in the browser can't protect anything, because the real gate is the server.
 
 **Delivering the page.** Try these in order:
 1. **Personal project + an Artifact/publish tool is available:** publish it (private) and republish the same file as it updates.
@@ -125,7 +127,7 @@ VERIFY  (must check before relying on it) ...
 
 Never manufacture certainty about a codebase you haven't read. Checklist and commands: [references/recon-risk-scope.md](references/recon-risk-scope.md).
 
-**BUILD_MAP** (meaningful work only). Write `.builder/BUILD_MAP.md` from `templates/BUILD_MAP.md`: intent, how the system works today, a mental-model diagram (user action → component → state → data → render → result), files involved and why, the plan in plain language, only the concepts this change needs, risks, and validation. Keep it out of commits: add `.builder/` to `.git/info/exclude`, a local-only ignore that leaves the repo's own `.gitignore` alone. Skip it for small work, where it's overhead. BUILD_MAP is your working memory; what the learner sees is the lesson page's Map section.
+**BUILD_MAP** (meaningful work only). Write `.builder/BUILD_MAP.md` from `templates/BUILD_MAP.md`: intent, how the system works today, a mental-model diagram (user action → component → state → data → render → result), files involved and why, the plan in plain language, only the concepts this change needs, risks, and validation. Keep it out of commits: the first time you create `.builder/`, put a `.gitignore` inside it containing just `*`. The folder then ignores itself, with no edits to the repo's own files or to `.git/` (which is often write-protected).gitignore` alone. Skip it for small work, where it's overhead. BUILD_MAP is your working memory; what the learner sees is the lesson page's Map section.
 
 **Implement.** Write the code. The learner should not hand-type code for show. Watch for **learning moments**: things that are architecturally important, recur across frontend work, are needed to understand this change, or correct a wrong mental model. Skip syntax trivia.
 

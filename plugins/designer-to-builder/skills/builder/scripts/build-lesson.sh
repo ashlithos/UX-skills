@@ -7,6 +7,10 @@ dir="$(cd "$(dirname "$0")/.." && pwd)"
 content="$1"; out="$2"; title="$3"; minutes="${4:-5}"; mode="${5:-}"
 [ -f "$content" ] || { echo "content file not found: $content" >&2; exit 1; }
 mkdir -p "$(dirname "$out")"
+# Keep .builder/ out of git without touching the repo: the folder ignores itself.
+case "$(cd "$(dirname "$out")" && pwd)/" in
+  */.builder/*) b="$(cd "$(dirname "$out")" && pwd)"; b="${b%%/.builder/*}/.builder"; [ -f "$b/.gitignore" ] || echo "*" > "$b/.gitignore" ;;
+esac
 {
   [ "$mode" = "--artifact" ] || echo '<!doctype html>'
   awk -v t="$title" -v m="$minutes" -v c="$content" '

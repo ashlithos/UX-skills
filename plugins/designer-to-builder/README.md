@@ -85,8 +85,8 @@ Type `/builder <mode>`, or just say it in plain words.
 | `LEARNER_PROFILE.md` | `~/.claude/designer-to-builder/` | Your level, ship/learn ratio, preferences. You own it. |
 | `CONCEPTS.md` | same | ~60 concepts, each `[ ]` not learned, `[~]` learning, or `[x]` comfortable. You graduate them. |
 | `LEARNING_LOG.md` | same | 5 lines per session, plus a "next time, explain" warm-up question |
-| `BUILD_MAP.md` | `.builder/` in the project | Temporary map for a meaningful change; git-excluded, never committed |
-| Lesson pages | `.builder/lessons/` in the project | Visual lesson for each task; git-excluded |
+| `BUILD_MAP.md` | `.builder/` in the project | Temporary map for a meaningful change; never committed |
+| Lesson pages | `.builder/lessons/` in the project | Visual lesson for each task. `.builder/` ignores itself in git |
 
 Set `BUILDER_HOME` to store state somewhere else, for example a synced folder.
 
