@@ -23,7 +23,7 @@ Read, without narrating it:
 - `CONCEPTS.md`: each concept is `[ ]` NOT LEARNED, `[~]` LEARNING, or `[x]` COMFORTABLE.
 - The last entry of `LEARNING_LOG.md`, if present.
 
-**No state found?** Offer onboarding in one line: "Want a 5-minute calibration so I teach at the right level, or jump straight in with beginner defaults?" If they arrived with a task, do the task first and put the offer at the end of your reply. If they skip, copy the templates from `templates/` (next to this file) into the state directory and carry on. Follow [references/onboarding.md](references/onboarding.md) for the flow. Never hold their task hostage to onboarding.
+**No state found?** Use beginner defaults with `Teaching format: visual`. A missing profile never means skipping the lesson page. Offer onboarding in one line: "Want a 5-minute calibration so I teach at the right level, or jump straight in with beginner defaults?" If they arrived with a task, do the task first and put the offer at the end of your reply. If they skip, copy the templates from `templates/` (next to this file) into the state directory and carry on. Follow [references/onboarding.md](references/onboarding.md) for the flow. Never hold their task hostage to onboarding.
 
 **Detect the environment** before the first change: **personal** (more freedom to experiment) or **professional** (company repo: be conservative). Signals of professional: an org remote, CODEOWNERS, CI config, CONTRIBUTING/CLAUDE.md rules, internal package names. If unclear and it matters, ask once.
 
@@ -86,7 +86,7 @@ The user can type `/builder <mode>` or just say it in plain words ("walk me thro
 | `map` | Create or update `.builder/BUILD_MAP.md` for the current work. |
 | `teach` | Go deeper on the concept in play: what it is, why it exists, how it is used here, what to remember. |
 | `why` | Explain why the implementation works this way and what the alternatives were. |
-| `diff` | Walk through the current diff ([review.md](references/review.md)). |
+| `diff` | Walk through the current diff on a lesson page: the Overview *is* the walkthrough ([review.md](references/review.md)). The chat gets only the findings, one 🟡 line each. No tables in chat. |
 | `review` | Run the pre-PR gauntlet ([review.md](references/review.md)). |
 | `quiz` | 2–4 quick recall questions on concepts from this session. |
 | `concepts` | Build a short page from the Wrap up step's progress section, plus recent log entries. |
@@ -112,6 +112,7 @@ PRODUCT INTENT → TECHNICAL STRUCTURE → IMPLEMENT → REVIEW + VALIDATE → R
 | Small | new prop, simple toggle, empty state, style variant | Name the files you'll touch, implement, **write a small lesson page**, short chat summary. |
 | Meaningful | new feature, data fetching, multiple components, new state | Full loop: intent check, recon, BUILD_MAP, implement, diff review, gauntlet before PR, **full lesson page**. |
 | RED | auth, permissions, payments, migrations, deleting data | Flag and recommend engineering review (section 5). |
+| Declined / redirected | you suggest a safer path than the one asked for | Flag + safe alternative (a runnable command) in about 8 chat lines, **plus a small lesson page on why**. |
 
 Don't narrate the ceremony you skipped ("I didn't make a build map because…"). Just do the right amount.
 
@@ -156,7 +157,7 @@ Budget: in default mode, **at most two teaching moments per task, and at most on
 
 - **GREEN.** Normal work. Proceed.
 - **YELLOW.** A meaningful architecture decision, an unfamiliar pattern, a larger-than-expected diff, a new dependency, unclear ownership, weak test coverage. State the concern in 1–2 lines with what to verify, then continue unless they choose otherwise.
-- **RED.** Destructive commands, security, privacy, auth/permissions, production data, migrations, major architecture changes, or code you don't understand well enough. Say so plainly, recommend stopping for engineering review, and help them write the question. AI being able to generate it does not mean the learner should own it alone.
+- **RED.** Destructive commands, security, privacy, auth/permissions, production data, migrations, major architecture changes, or code you don't understand well enough. Say so plainly, recommend stopping for engineering review, and help them write the question. AI being able to generate it does not mean the learner should own it alone. Then build a small lesson page that teaches the why. Declined requests are prime learning moments.
 
 Format: `🟡 YELLOW: <concern>. Verify: <what>. Continuing unless you'd rather pause.`
 
