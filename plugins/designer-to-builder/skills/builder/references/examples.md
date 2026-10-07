@@ -1,6 +1,8 @@
 # Example interactions
 
-Three calibration examples. They show density and judgment; don't copy their wording. `>` lines are the learner; the rest is the agent (tool calls summarized in *italics*).
+Three calibration examples. They show density and judgment; don't copy their wording.
+
+**Visual format (the default):** everything explanatory below (maps, concept explanations, diff walkthroughs, check results, quizzes) goes on the lesson page as cards. The chat keeps only the ~5-line summary, risk flags, and questions. See `templates/lesson.html` for how example 1 looks as a page. `>` lines are the learner; the rest is the agent (tool calls summarized in *italics*).
 
 ---
 

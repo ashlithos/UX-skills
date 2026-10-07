@@ -20,7 +20,7 @@ The test for every explanation: **will this make them more capable in session 20
 > Here, `SearchPage.tsx:42` passes `selected={filter}` into `<FilterChip>`, so the chip just *displays* what the page tells it.
 > Remember: **data flows down through props; the child doesn't own it.**
 
-Use a visual when there are three or more moving parts:
+In visual format, this becomes a concept card on the lesson page (`templates/lesson.html`), and a structure becomes a flow or tree section there. In chat format, use a visual when there are three or more moving parts:
 
 ```
 SearchPage   ← owns `filter` (state)

@@ -39,6 +39,12 @@ I'm a product designer learning to build. For coding work, use the builder skill
 
 Type `/builder` (or `/designer-to-builder:builder` if another command is already called `builder`). It offers a 5-minute, scenario-based calibration. You can skip it and start with beginner defaults.
 
+## Visual lessons
+
+You get explanations as a **visual lesson page**, a calm dashboard of cards: the one thing to remember, how it works step by step, the new idea, what changed, checks, and a quick quiz. The chat stays to about 5 lines. Sample: `skills/builder/templates/lesson.html`. Prefer text? Set `Teaching format: chat` in your profile.
+
+Pages go to `.builder/lessons/` in the project. In personal projects with claude.ai, they're also published as private Artifacts. Pages from work repos stay on your machine.
+
 ## Controls
 
 Type `/builder <mode>`, or just say it in plain words.
@@ -68,6 +74,7 @@ Type `/builder <mode>`, or just say it in plain words.
 | `CONCEPTS.md` | same | ~60 concepts, each `[ ]` not learned, `[~]` learning, or `[x]` comfortable. You graduate them. |
 | `LEARNING_LOG.md` | same | 5 lines per session, plus a "next time, explain" warm-up question |
 | `BUILD_MAP.md` | `.builder/` in the project | Temporary map for a meaningful change; git-excluded, never committed |
+| Lesson pages | `.builder/lessons/` in the project | Visual lesson for each task; git-excluded |
 
 Set `BUILDER_HOME` to store state somewhere else, for example a synced folder.
 
@@ -96,7 +103,8 @@ skills/builder/
     ├── LEARNER_PROFILE.md
     ├── CONCEPTS.md
     ├── LEARNING_LOG.md
-    └── BUILD_MAP.md
+    ├── BUILD_MAP.md
+    └── lesson.html              visual lesson page (styles + sample sections)
 ```
 
 ## Using it with other coding agents

@@ -23,6 +23,7 @@ _Last updated: YYYY-MM-DD_
 
 ## How I like to learn
 
+- **Teaching format:** visual <!-- visual = HTML lesson pages + short chat | chat = explanations in the chat -->
 - Examples and analogies first, then the real term
 - Visual maps (ASCII diagrams, trees, flows) for anything with more than 3 moving parts
 - Short explanations by default. I'll say "teach" when I want depth

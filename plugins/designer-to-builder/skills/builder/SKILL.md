@@ -27,6 +27,34 @@ Read, without narrating it:
 
 **Detect the environment** before the first change: **personal** (more freedom to experiment) or **professional** (company repo: be conservative). Signals of professional: an org remote, CODEOWNERS, CI config, CONTRIBUTING/CLAUDE.md rules, internal package names. If unclear and it matters, ask once.
 
+## Visual-first: teach on the page, keep the chat short
+
+Many designers learn visually and a wall of terminal text is a barrier. Unless the profile says `Teaching format: chat`, **all teaching goes on an HTML lesson page, not in the chat.**
+
+**Chat replies** stay at about 5 short lines:
+```
+Done: empty search now shows "No results for X" (1 file, +3 −1).
+🟢 Low risk · Not verified in the browser yet.
+📘 Lesson: <link or path>
+Next: want it styled with your muted text token?
+```
+Keep risk flags (🟡/🔴) and questions you need answered in the chat. Those must never hide on a page.
+
+**The lesson page is part of the work, not an extra.** Write it before your final reply, without asking permission (it's the learner's own learning material, kept in git-excluded `.builder/`). Build it from `templates/lesson.html`. Copy it, keep its `<style>` untouched, replace the sample content, and delete sections you don't need. Use one page per task, saved at `.builder/lessons/<date>-<slug>.html`, and update it as the work moves forward. Cards: Remember → How it works → New idea → What changed → Checks → Code before/after → Quick check → Your progress → Next time. Rules:
+- **Friendly and approachable.** Write in plain, warm words ("The page remembers what you typed", not "query state is updated"). Introduce code names only as a small secondary label.
+- **Pictures over paragraphs.** Steps, tiles, before/after, checkmarks. No paragraph longer than 2 lines.
+- **Same teaching budget as chat.** At most two concept cards and one quiz per task. Visual doesn't mean more.
+- **Truthful.** The checks section shows only what actually ran.
+- **If you explain anything, it goes on a page.** Small changes get a small page (hero + tl;dr + one concept card + checks). Only a trivial change with nothing to teach skips the page. Never move an explanation into the chat because the page "felt like overhead".
+- **Chat cap: 5 lines.** No explanatory bullets, no concept paragraphs. If you have more to say, it belongs on the page.
+
+**Delivering the page.** Try these in order:
+1. **Personal project + an Artifact/publish tool is available:** publish it (private) and republish the same file as it updates.
+2. **A file-sending tool that renders HTML** (e.g. SendUserFile with `display: render`): send it.
+3. **Otherwise:** write the file and open it (`open <file>` on macOS, `xdg-open` on Linux), then give the path.
+
+**Professional repos: local file only.** Lesson pages contain proprietary code, so never publish them to an external service unless the environment explicitly allows it.
+
 ## 2. Modes and controls
 
 The user can type `/builder <mode>` or just say it in plain words ("walk me through the diff", "ship mode", "tell me", "skip").
@@ -40,7 +68,7 @@ The user can type `/builder <mode>` or just say it in plain words ("walk me thro
 | `diff` | Walk through the current diff ([review.md](references/review.md)). |
 | `review` | Run the pre-PR gauntlet ([review.md](references/review.md)). |
 | `quiz` | 2–4 quick recall questions on concepts from this session. |
-| `concepts` | Show the tracker grouped by status, briefly. |
+| `concepts` | Render the tracker visually (the progress section of `lesson.html`) plus recent log entries. |
 | `comfortable <x>` | Confirm, then mark concept x COMFORTABLE. |
 | `retro` | What did implementation teach us about the design? |
 | `ship` | Minimal teaching until told otherwise. Still flag risks and still review the diff. |
@@ -59,9 +87,9 @@ PRODUCT INTENT → TECHNICAL STRUCTURE → IMPLEMENT → REVIEW + VALIDATE → R
 
 | Size | Examples | Ceremony |
 |---|---|---|
-| Trivial | copy change, token swap, spacing | Just do it. One line on what changed. |
-| Small | new prop, simple toggle, style variant | Name the files you'll touch, implement, short diff walkthrough. |
-| Meaningful | new feature, data fetching, multiple components, new state | Full loop: intent check, recon, BUILD_MAP, implement, diff review, gauntlet before PR. |
+| Trivial | copy change, token swap, spacing | Just do it. One line on what changed. No page. |
+| Small | new prop, simple toggle, empty state, style variant | Name the files you'll touch, implement, **write a small lesson page**, short chat summary. |
+| Meaningful | new feature, data fetching, multiple components, new state | Full loop: intent check, recon, BUILD_MAP, implement, diff review, gauntlet before PR, **full lesson page**. |
 | RED | auth, permissions, payments, migrations, deleting data | Flag and recommend engineering review (section 5). |
 
 Don't narrate the ceremony you skipped ("I didn't make a build map because…"). Just do the right amount.
@@ -78,7 +106,7 @@ VERIFY  (must check before relying on it) ...
 
 Never manufacture certainty about a codebase you haven't read. Checklist and commands: [references/recon-risk-scope.md](references/recon-risk-scope.md).
 
-**BUILD_MAP** (meaningful work only). Write `.builder/BUILD_MAP.md` from `templates/BUILD_MAP.md`: intent, how the system works today, a mental-model diagram (user action → component → state → data → render → result), files involved and why, the plan in plain language, only the concepts this change needs, risks, and validation. Keep it out of commits: add `.builder/` to `.git/info/exclude`, a local-only ignore that leaves the repo's own `.gitignore` alone. Skip it for small work, where it's overhead.
+**BUILD_MAP** (meaningful work only). Write `.builder/BUILD_MAP.md` from `templates/BUILD_MAP.md`: intent, how the system works today, a mental-model diagram (user action → component → state → data → render → result), files involved and why, the plan in plain language, only the concepts this change needs, risks, and validation. Keep it out of commits: add `.builder/` to `.git/info/exclude`, a local-only ignore that leaves the repo's own `.gitignore` alone. Skip it for small work, where it's overhead. BUILD_MAP is your working memory; what the learner sees is the lesson page's Map section.
 
 **Implement.** Write the code. The learner should not hand-type code for show. Watch for **learning moments**: things that are architecturally important, recur across frontend work, are needed to understand this change, or correct a wrong mental model. Skip syntax trivia.
 
@@ -88,7 +116,7 @@ Never manufacture certainty about a codebase you haven't read. Checklist and com
 
 ## 4. Teaching contract
 
-Assume intelligence and limited programming vocabulary. Default shape, usually 3–6 lines:
+Assume intelligence and limited programming vocabulary. On the lesson page, a teaching moment is a concept card. In chat format, it's 3–6 lines. Either way it has the same shape:
 
 > **What it is →** **Why it exists →** **How it's used here** (real file, real line) **→ What to remember**
 
@@ -133,7 +161,7 @@ Remember: state lives in the lowest component that every reader sits under.
 Next time, explain: why didn't we use localStorage here?
 ```
 
-Mention it in one line ("Logged today's session."). Next session, if the "explain next time" question is relevant and they're not in ship mode, open with it as a one-line warm-up. This retrieval practice is how concepts stick across sessions. If they say skip, skip.
+Add the progress and "next time" sections to the lesson page, then mention it in one chat line ("Logged today's session."). Next session, if the "explain next time" question is relevant and they're not in ship mode, open with it as a one-line warm-up. This retrieval practice is how concepts stick across sessions. If they say skip, skip.
 
 ## 9. Non-negotiables
 
@@ -150,4 +178,5 @@ Always: inspect before modifying, reuse before inventing, prefer small changes, 
 | [references/review.md](references/review.md) | `diff`, `review`, before a PR, `retro` |
 | [references/recon-risk-scope.md](references/recon-risk-scope.md) | Recon in an unfamiliar repo, YELLOW/RED calls, scope alarm, engineer questions |
 | [references/examples.md](references/examples.md) | Calibrating tone and density for beginner, intermediate, or production work |
-| `templates/` | Creating `LEARNER_PROFILE.md`, `CONCEPTS.md`, `LEARNING_LOG.md`, `BUILD_MAP.md` |
+| `templates/lesson.html` | Every lesson page (styles + one sample of each visual section) |
+| `templates/*.md` | Creating `LEARNER_PROFILE.md`, `CONCEPTS.md`, `LEARNING_LOG.md`, `BUILD_MAP.md` |

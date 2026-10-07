@@ -1,0 +1,289 @@
+<!--
+  BUILDER LESSON PAGE: template + filled-in sample.
+  How to use (agent):
+  1. Copy this file to .builder/lessons/<YYYY-MM-DD>-<slug>.html (one page per task).
+  2. Keep the <style> block exactly as it is. Replace the sample content in each card.
+  3. Delete cards this task doesn't need. A small change can be: header + remember + flow + one concept + checks.
+  4. Friendly, plain words. No paragraph longer than 2 lines. Prefer steps, tiles, and checkmarks.
+  5. Never invent results. The checks card must match what actually ran.
+  6. Change <title> to the task name (e.g. "Empty Search Lesson") and delete this whole comment.
+  7. Opening locally: put <!doctype html> on the first line. When publishing as an Artifact, leave it off.
+-->
+<title>Sample Builder Lesson</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a calm bento dashboard. Soft white cards on light gray, big friendly numbers, one idea per card. */
+:root {
+  --bg: #eceef1; --card: #ffffff; --ink: #1d2126; --muted: #8b919a; --line: #e6e8ec; --soft: #f5f6f8;
+  --green: #1fa97a; --green-soft: #e2f5ee; --orange: #ee6b3b; --orange-soft: #fdeee7;
+  --sky-1: #d9ecff; --sky-2: #f4f9ff; --pill: #16191d; --pill-ink: #ffffff;
+  --shadow: 0 1px 2px rgba(20, 28, 38, .04), 0 12px 32px rgba(20, 28, 38, .06);
+  --f-body: "Lexend", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121417; --card: #1b1e23; --ink: #eef0f3; --muted: #8f96a1; --line: #2a2e35; --soft: #22262c;
+  --green: #3ccb97; --green-soft: #173329; --orange: #ff8a5c; --orange-soft: #3a2219;
+  --sky-1: #1d2d44; --sky-2: #1b1e23; --pill: #eef0f3; --pill-ink: #121417;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 12px 32px rgba(0, 0, 0, .25); color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #121417; --card: #1b1e23; --ink: #eef0f3; --muted: #8f96a1; --line: #2a2e35; --soft: #22262c;
+  --green: #3ccb97; --green-soft: #173329; --orange: #ff8a5c; --orange-soft: #3a2219;
+  --sky-1: #1d2d44; --sky-2: #1b1e23; --pill: #eef0f3; --pill-ink: #121417;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 12px 32px rgba(0, 0, 0, .25); color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 300 16px/1.55 var(--f-body); }
+.page { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 56px; display: grid; gap: 22px; }
+h1, h2, h3, p { margin: 0; }
+h1 { font-weight: 400; font-size: clamp(1.7rem, 4vw, 2.4rem); line-height: 1.15; letter-spacing: -.01em; text-wrap: balance; }
+h2 { font-weight: 400; font-size: 1.05rem; }
+strong { font-weight: 500; }
+code { font-family: var(--f-mono); font-size: .85em; background: var(--soft); padding: 1px 6px; border-radius: 6px; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; border-radius: 8px; }
+svg.i { width: 16px; height: 16px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Top bar */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.brand { font-weight: 500; font-size: 1.05rem; line-height: 1; }
+.brand span { color: var(--green); }
+.nav { display: flex; gap: 4px; background: var(--pill); padding: 4px; border-radius: 999px; overflow-x: auto; max-width: 100%; }
+.nav a { color: var(--pill-ink); text-decoration: none; font-size: .85rem; padding: 7px 14px; border-radius: 999px; white-space: nowrap; opacity: .8; }
+.nav a:first-child { background: var(--card); color: var(--ink); opacity: 1; }
+.date { text-align: right; color: var(--muted); font-size: .85rem; line-height: 1.3; }
+.date b { display: block; color: var(--ink); font-weight: 400; font-size: 1.3rem; }
+@media (max-width: 680px) { .date { display: none; } }
+
+/* Title + stats */
+.head { display: flex; justify-content: space-between; align-items: end; gap: 20px 40px; flex-wrap: wrap; }
+.head .sub { color: var(--muted); margin-top: 6px; }
+.stats { display: flex; gap: 32px; flex-wrap: wrap; }
+.stat small { display: block; color: var(--muted); font-size: .85rem; }
+.stat b { font-weight: 400; font-size: 1.8rem; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.stat .good { color: var(--green); }
+
+/* Bento grid */
+.bento { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 680px) { .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); } .wide { grid-column: span 2; } }
+@media (min-width: 1000px) { .bento { grid-template-columns: repeat(3, minmax(0, 1fr)); } .tall { grid-row: span 2; } }
+.card { background: var(--card); border-radius: 22px; padding: 20px; box-shadow: var(--shadow); display: grid; gap: 14px; align-content: start; min-width: 0; }
+.label { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: .88rem; }
+.label .more { margin-left: auto; font-size: .8rem; }
+
+/* Remember (hero) card */
+.hero { background: linear-gradient(160deg, var(--sky-1), var(--sky-2) 70%); align-content: space-between; min-height: 280px; }
+.hero h2 { font-size: 1.45rem; line-height: 1.3; font-weight: 400; }
+.hero .rule { font-family: var(--f-mono); font-size: 1rem; background: var(--card); padding: 10px 14px; border-radius: 14px; display: inline-block; }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag { font-size: .75rem; padding: 4px 10px; border-radius: 999px; background: var(--card); color: var(--ink); }
+.tag.o { background: var(--orange-soft); color: var(--orange); }
+.tag.g { background: var(--green-soft); color: var(--green); }
+
+/* Steps list (flow) */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.steps li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; align-items: start; padding: 8px 0; }
+.steps .dot { width: 28px; height: 28px; border-radius: 50%; background: var(--soft); display: grid; place-items: center; font-size: .8rem; color: var(--muted); }
+.steps .new .dot { background: var(--green-soft); color: var(--green); }
+.steps small { display: block; color: var(--muted); font-size: .8rem; }
+
+/* Concept rows */
+.rows { display: grid; gap: 10px; }
+.row { display: grid; gap: 2px; padding: 10px 12px; background: var(--soft); border-radius: 14px; }
+.row small { color: var(--muted); font-size: .78rem; }
+.like { display: flex; gap: 10px; align-items: start; color: var(--muted); font-size: .92rem; }
+
+/* Files changed */
+.files { display: grid; gap: 12px; }
+.file { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; }
+.file .name { font-family: var(--f-mono); font-size: .88rem; overflow-wrap: anywhere; }
+.file .num { font-variant-numeric: tabular-nums; font-size: .85rem; }
+.file .num .p { color: var(--green); } .file .num .m { color: var(--orange); }
+.file small { grid-column: 1 / -1; color: var(--muted); font-size: .82rem; }
+.ticks { grid-column: 1 / -1; display: flex; gap: 3px; height: 18px; align-items: end; }
+.ticks i { width: 3px; border-radius: 2px; background: var(--line); height: 50%; }
+.ticks i.p { background: var(--green); height: 100%; } .ticks i.m { background: var(--orange); height: 100%; }
+.quiet { color: var(--muted); font-size: .85rem; }
+
+/* Checks (activity list) */
+.checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.checks li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.checks li:last-child { border-bottom: 0; }
+.checks small { color: var(--muted); font-size: .8rem; }
+.checks .done { color: var(--green); }
+.checks .todo b { color: var(--orange); font-weight: 400; }
+.checks .ic { grid-row: span 2; align-self: center; }
+.risk { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 14px; background: var(--green-soft); color: var(--green); font-size: .9rem; }
+
+/* Code before / after */
+.compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.compare figure { margin: 0; display: grid; gap: 6px; min-width: 0; align-content: start; }
+.compare figcaption { color: var(--muted); font-size: .82rem; }
+.code { margin: 0; background: var(--soft); border-radius: 14px; padding: 12px 0; overflow-x: auto; font: 400 .82rem/1.7 var(--f-mono); white-space: normal; }
+.code span { display: block; padding-inline: 14px; white-space: pre; }
+.code .a { background: var(--green-soft); } .code .d { background: var(--orange-soft); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--orange) 50%, transparent); }
+.code .c { color: var(--muted); }
+
+/* Quiz */
+details { background: var(--soft); border-radius: 14px; padding: 12px 14px; }
+summary { cursor: pointer; font-weight: 400; list-style: none; display: flex; justify-content: space-between; gap: 10px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "Show answer"; color: var(--green); font-size: .82rem; white-space: nowrap; }
+details[open] summary::after { content: "Hide"; }
+details[open] summary { margin-bottom: 8px; }
+details p { color: var(--muted); font-size: .92rem; }
+details p + p { margin-top: 6px; }
+
+/* Progress */
+.prog { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.prog > div { display: grid; gap: 8px; align-content: start; }
+.prog h3 { font-weight: 400; font-size: .85rem; color: var(--muted); display: flex; gap: 6px; }
+.prog h3 b { color: var(--ink); font-weight: 400; font-variant-numeric: tabular-nums; }
+.bubbles { display: flex; flex-wrap: wrap; gap: 6px; }
+.bubbles span { font-size: .82rem; padding: 5px 10px; border-radius: 999px; background: var(--soft); }
+.bubbles .up { background: var(--green-soft); color: var(--green); }
+.meter { height: 8px; border-radius: 99px; background: var(--soft); overflow: hidden; display: flex; }
+.meter i { display: block; height: 100%; }
+.meter .c1 { background: var(--green); } .meter .c2 { background: color-mix(in srgb, var(--green) 40%, var(--soft)); }
+
+/* Next time */
+.next { background: var(--green-soft); }
+.next p { font-size: 1.15rem; line-height: 1.4; }
+.next .label { color: var(--green); }
+
+.foot { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; color: var(--muted); font-size: .85rem; }
+.foot code { background: var(--card); box-shadow: var(--shadow); padding: 5px 10px; border-radius: 999px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<main class="page">
+
+  <!-- Top bar: brand, section links (anchors to cards below), date -->
+  <nav class="top" aria-label="Lesson">
+    <div class="brand">Builder<span>.lesson</span></div>
+    <div class="nav"><a href="#overview">Overview</a><a href="#flow">How it works</a><a href="#code">Code</a><a href="#checks">Checks</a></div>
+    <div class="date">toyapp<b>Tue, Oct 7</b></div>
+  </nav>
+
+  <!-- Title + 3–4 big numbers -->
+  <header class="head" id="overview">
+    <div>
+      <h1>Show a message when search finds nothing</h1>
+      <p class="sub">1 thing to remember today</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><small>Files changed</small><b>1</b></div>
+      <div class="stat"><small>Lines</small><b>+3 −1</b></div>
+      <div class="stat"><small>Risk</small><b class="good">Low</b></div>
+    </div>
+  </header>
+
+  <section class="bento">
+
+    <!-- Remember: the single takeaway. Always first. -->
+    <article class="card hero tall">
+      <div class="label"><svg class="i" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg>Remember</div>
+      <h2>Screens have states, like empty, loading, and full. The code picks which one to show.</h2>
+      <div>
+        <div class="rule">condition ? A : B</div>
+      </div>
+      <div class="tags"><span class="tag g">New today</span><span class="tag">Conditional rendering</span></div>
+    </article>
+
+    <!-- How it works: 3–5 steps from user action to result. Mark the changed step with class="new". -->
+    <article class="card" id="flow">
+      <div class="label"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>How it works</div>
+      <ol class="steps">
+        <li><span class="dot">1</span><div>You type in the search box<small>The input</small></div></li>
+        <li><span class="dot">2</span><div>The page remembers what you typed<small>Stored as <code>query</code></small></div></li>
+        <li><span class="dot">3</span><div>Items get filtered<small>Matches become <code>results</code></small></div></li>
+        <li class="new"><span class="dot">4</span><div>No matches? Show a friendly message<small>New today</small></div></li>
+      </ol>
+    </article>
+
+    <!-- Concept: one card per teaching moment (max two). What / Why / Here + a "like" analogy. -->
+    <article class="card">
+      <div class="label"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>New idea · Conditional rendering</div>
+      <div class="rows">
+        <div class="row"><small>What it is</small>Showing different things depending on a condition</div>
+        <div class="row"><small>Why it matters</small>Every real screen has an empty state, a loading state, and an error state</div>
+        <div class="row"><small>Where it is</small><span><code>SearchPage.jsx</code>, line 6</span></div>
+      </div>
+      <p class="like"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.6 7.1 18.2 8 12.7 4 8.8 9.5 8z"/></svg>Like switching a component's State property between Empty and Filled.</p>
+    </article>
+
+    <!-- Files changed: one block per file. Ticks: green = added lines, orange = removed. -->
+    <article class="card">
+      <div class="label"><svg class="i" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5"/></svg>What changed</div>
+      <div class="files">
+        <div class="file">
+          <span class="name">SearchPage.jsx</span>
+          <span class="num"><span class="p">+3</span> <span class="m">−1</span></span>
+          <div class="ticks" aria-hidden="true"><i class="p"></i><i class="p"></i><i class="p"></i><i class="m"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <small>Shows the message instead of the list when nothing matches</small>
+        </div>
+      </div>
+      <p class="quiet">Nothing else touched. No new packages.</p>
+    </article>
+
+    <!-- Checks: what actually ran (green check) vs. still to do (orange). Must be true. -->
+    <article class="card" id="checks">
+      <div class="label"><svg class="i" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Checks</div>
+      <div class="risk"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>Low risk. A small change in one screen.</div>
+      <ul class="checks">
+        <li class="todo"><b>Try it in the browser</b><span class="ic"></span><small>Not done yet. Type “zzz”, then clear the box</small></li>
+        <li class="todo"><b>Automatic tests</b><span class="ic"></span><small>This project doesn't have any yet</small></li>
+        <li><span class="done">Only one file changed</span><svg class="i done ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><small>Checked in the diff</small></li>
+      </ul>
+    </article>
+
+    <!-- Code: before / after, each side under ~10 lines. .a = added, .d = removed. -->
+    <article class="card wide" id="code">
+      <div class="label"><svg class="i" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>The code, before and after</div>
+      <div class="compare">
+        <figure><figcaption>Before</figcaption>
+<pre class="code"><span class="c">// SearchPage.jsx</span>
+<span>&lt;input … /&gt;</span>
+<span class="d">&lt;ResultsList results={results} /&gt;</span></pre></figure>
+        <figure><figcaption>After</figcaption>
+<pre class="code"><span class="c">// SearchPage.jsx</span>
+<span>&lt;input … /&gt;</span>
+<span class="a">{results.length === 0</span>
+<span class="a">  ? &lt;p&gt;No results for "{query}"&lt;/p&gt;</span>
+<span class="a">  : &lt;ResultsList results={results} /&gt;}</span></pre></figure>
+      </div>
+    </article>
+
+    <!-- Quick check: at most one. Answer hidden until clicked. -->
+    <article class="card">
+      <div class="label"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.7M12 17h.01"/></svg>Quick check</div>
+      <details>
+        <summary>If results came from a server, what would people see while waiting?</summary>
+        <p>A quick flash of “No results” before the data arrives.</p>
+        <p>That's why real apps check in this order: loading, error, empty, results.</p>
+      </details>
+    </article>
+
+    <!-- Progress: on wrap or /builder concepts. class="up" = moved today. -->
+    <article class="card wide">
+      <div class="label"><svg class="i" viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 15l3-3 3 2 5-6"/></svg>Your progress</div>
+      <div class="meter" aria-label="2 comfortable, 2 learning, out of 60 concepts"><i class="c1" style="width:3.3%"></i><i class="c2" style="width:3.3%"></i></div>
+      <div class="prog">
+        <div><h3>Comfortable <b>2</b></h3><div class="bubbles"><span>Components</span><span>CSS layout</span></div></div>
+        <div><h3>Learning <b>2</b></h3><div class="bubbles"><span class="up">Conditional rendering ↑</span><span>State</span></div></div>
+        <div><h3>Coming up</h3><div class="bubbles"><span>Loading states</span><span>Props</span></div></div>
+      </div>
+    </article>
+
+    <!-- Next time: one question to answer from memory (also saved in LEARNING_LOG.md). -->
+    <article class="card next">
+      <div class="label"><svg class="i" viewBox="0 0 24 24"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>Next time, explain from memory</div>
+      <p>Why does the message live in SearchPage and not in ResultsList?</p>
+    </article>
+
+  </section>
+
+  <footer class="foot"><span>Want more?</span><code>/builder teach</code><code>/builder why</code><code>/builder quiz</code></footer>
+</main>

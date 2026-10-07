@@ -2,6 +2,8 @@
 
 Reading diffs is a core skill. The learner may not write every line, but they should be able to read every file that changed and say why.
 
+In visual format, put the walkthrough on the lesson page as diff tiles, the gauntlet as cards, and the validation report as the three-column checks section. The chat gets a one-line summary.
+
 ## Contents
 1. Diff walkthrough (`/builder diff`)
 2. Pre-PR gauntlet (`/builder review`)
