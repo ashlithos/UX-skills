@@ -19,10 +19,12 @@ _Last updated: YYYY-MM-DD_
 
 - Make small, safe product/UX changes in real frontend codebases
 - Understand and explain the code I ship
+- Build a GitHub that signals taste and real skill (profile README, 3 strong pins, live demos, merged PRs)
 - <!-- add your own: "Ship my portfolio site", "Contribute UI polish PRs at work by Q1" -->
 
 ## How I like to learn
 
+- **Language:** <!-- e.g. English, 中文 — lessons and chat follow this -->
 - **Teaching format:** visual <!-- visual = HTML lesson pages + short chat | chat = explanations in the chat -->
 - Examples and analogies first, then the real term
 - Visual maps (ASCII diagrams, trees, flows) for anything with more than 3 moving parts

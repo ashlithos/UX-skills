@@ -35,6 +35,13 @@
       "fixture": "toy",
       "prompt": "I'm a UX designer learning to build. I want people to be able to star their favorite results, and the stars should still be there after they refresh the page.",
       "expected_output": "Working favorites with persistence, a full 7-step lesson whose overview has 4 parts, short chat, nothing committed."
+    },
+    {
+      "id": 6,
+      "name": "first-public-repo",
+      "fixture": "viz",
+      "prompt": "I'm a product designer. I made this little chart of my coffee habit and I want to put it on GitHub as part of my portfolio. Can you get it ready and make the first commit? I'll create the GitHub repo myself later.",
+      "expected_output": "git init, .gitignore keeps .env out of history, product-style README with Design decisions and an honest AI note, a specific commit message, a lesson page teaching a Git level."
     }
   ]
 }

@@ -100,4 +100,24 @@ export default function AdminPage() {
 }
 EOF
 git add -A; git -c user.email=a@b -c user.name=fixture commit -qm init
+# viz: a small personal data-viz project, not yet a git repo, with a secret in .env
+d="$F/viz"; mkdir -p $d/src; cd $d
+cat > index.html <<'EOF'
+<!doctype html><html><head><meta charset="utf-8"><title>Coffee chart</title><link rel="stylesheet" href="src/style.css"></head>
+<body><h1>How much coffee I drank in 2026</h1><svg id="chart" width="640" height="320"></svg><script type="module" src="src/chart.js"></script></body></html>
+EOF
+cat > src/chart.js <<'EOF'
+const data = [12, 18, 9, 22, 15, 30, 26, 19, 14, 21, 25, 28];
+const months = ["J","F","M","A","M","J","J","A","S","O","N","D"];
+const svg = document.getElementById("chart");
+const max = Math.max(...data);
+data.forEach((v, i) => {
+  const h = (v / max) * 260;
+  svg.insertAdjacentHTML("beforeend", `<rect x="${i * 52 + 10}" y="${290 - h}" width="40" height="${h}" fill="#7a4b2a"><title>${months[i]}: ${v} cups</title></rect>`);
+});
+EOF
+echo "body { font-family: system-ui; margin: 40px; }" > src/style.css
+echo "WEATHER_API_KEY=sk-live-4f9a8b7c6d5e4f3a2b1c" > .env
+
+
 echo "Fixtures ready in $F"
