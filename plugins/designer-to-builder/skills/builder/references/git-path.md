@@ -18,7 +18,7 @@ Never let them type destructive commands (`reset --hard`, `push --force`, `clean
 
 | Level | Moment that triggers it | Concepts | Everyday picture | They can now |
 |---|---|---|---|---|
-| 1 | First change in a repo | **repository, commit, git status** | A project folder with an unlimited version history. Each commit is a named save point you can return to. | Read `git status`, explain what a commit is |
+| 1 | First change in a repo | **repository, commit, git status** | A project folder with an unlimited version history. Each commit is a named save point you can return to. | Read `git status`, explain what a commit is, and check commits are signed with their own name and email (`git config user.email`) so they count on their GitHub profile |
 | 2 | First time code goes to GitHub | **remote, origin, push, pull, clone** | Your laptop copy vs the cloud copy (like a local file vs the shared Figma file). Push uploads your save points; pull downloads others'. | Say where their work lives, push a branch |
 | 3 | First feature that isn't a one-liner | **branch, main** | Duplicating a page to explore without touching the original. `main` is the version everyone trusts. | Create a branch and say why work doesn't happen on main |
 | 4 | First pull request | **diff, pull request, review, merge** | A design review for code: here's what changed and why; reviewers comment; approved work is merged into main. | Read a diff, write a PR description (github-craft.md §3) |

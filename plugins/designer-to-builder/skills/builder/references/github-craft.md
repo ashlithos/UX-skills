@@ -106,6 +106,7 @@ Show this as the "Before you ship" list on the lesson page:
 - [ ] 3–5 topics (e.g. `data-visualization`, `react`, `ai`)
 - [ ] README in the §3 shape, including Design decisions and How this was built
 - [ ] Live demo deployed, with the link in About and the README
+- [ ] Commit author is **you**: `git config user.name` / `user.email` match your GitHub account, or the commits won't count on your contribution graph or read as yours
 - [ ] `.gitignore` committed before any code; no secrets in history
 - [ ] A license (MIT if unsure, and say what that means in one line)
 - [ ] A social preview image (the card people see when the link is shared)

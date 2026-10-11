@@ -89,6 +89,7 @@ def grade(eid, d):
                 ex("README has an honest AI/how-it-was-built note", re.search(r"how (this|it) was built|\bAI\b|Claude", readme) is not None, "found" if readme else "no README"),
                 ex("README has demo/quickstart guidance", re.search(r"(?i)demo|quickstart|github pages|vercel|netlify", readme) is not None, "found" if readme else "no README"),
                 ex("Commit messages are specific (not 'update'/'initial commit')", len(msgs) > 0 and not generic, f"commits: {msgs}"),
+                ex("Decision ledger started (.builder/DECISIONS.md)", os.path.exists(r + "/.builder/DECISIONS.md"), "exists" if os.path.exists(r + "/.builder/DECISIONS.md") else "missing"),
                 *page_checks(d)[:1], short(d, 120)]
 
 summary = []
