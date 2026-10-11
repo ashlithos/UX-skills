@@ -200,6 +200,8 @@ For a designer, GitHub is a portfolio as much as a tool. Whenever you create a r
 
 Flag the don'ts: 🔴 company code going public, 🟡 generic AI-smell names, empty descriptions, no demo.
 
+In personal and portfolio repos, keep a **decision ledger** (`.builder/DECISIONS.md`, one line per consequential choice, tagged `[you]`, `[agent]` or `[stakeholder]`). Draft README and PR attribution from it. Before a repo is pinned or shared, include a **walkthrough rehearsal** in the wrap-up (github-craft.md §7). Hiring managers will ask the learner to walk it end to end, and to say which decisions were theirs.
+
 Teach Git with [references/git-path.md](references/git-path.md): when a Git moment happens for the first time (first push, first branch, first PR, first conflict…), that level becomes the session's lesson or a second concept card. Teach at most one level per session, moving it from watch → predict → do → own across sessions.
 
 ## 10. Non-negotiables

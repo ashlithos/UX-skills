@@ -5,12 +5,24 @@ Distilled from how well-known designers present themselves on GitHub. A designer
 Apply this **proactively** whenever you create a repo, write a README, commit, open a PR, push something public, or the learner asks about their GitHub. Don't wait to be asked: generate the README sections, PR description and commit messages in this shape, and say in one line what you added and why.
 
 ## Contents
+0. What hiring managers actually look for (the why)
 1. The ten practices
 2. Don'ts (flag these)
 3. Templates: profile README · project README · PR description · commit messages
 4. New public repo: launch checklist
 5. Contributing to other people's projects
 6. Quarterly signal review (`/builder portfolio`)
+7. Decision ledger and walkthrough rehearsal
+
+## 0. What hiring managers actually look for (the why)
+
+| Principle | Evidence from hiring leads | What it means for the skill |
+|---|---|---|
+| **A repo you can walk through beats green squares.** The hardest test is opening your real Figma file or repo and walking it end to end. A repo with a README, a demo and a decision record beats a wall of contribution squares. | "Be ready to open the actual Figma or repo and walk it end to end." (Dylan Widick, Block) | Before a repo is pinned or shared, run the walkthrough rehearsal (§7). |
+| **Original > contribution > fork. Taste is the scarce signal.** Forks and padded graphs don't count. Paco's cmdk, Oscar's 9.5k★ tool and Rogie's figui3 all follow the same arc: wanted it, built it, people use it. | "A personal project that shows unconstrained taste, and visual craft as the differentiator now that product thinking is baseline." (Chris Andrews, Notion) | Push for visual polish in demos and READMEs (GIF, screenshots, a considered UI). Steer toward original projects that come from real pain. |
+| **Code isn't the gate, but working in an IDE is the new baseline.** Nobody expects a designer to be a full-time engineer, but you have to show you can turn ideas into reality at the code level, the way Gavin's primer/octicons PRs or Katie's CSS tokens do. | "Code is not a screening bar everywhere." (Conor Muirhead, Linear). "Comfort with IDEs and AI tools" (Chris Andrews) | The Git path and the do/own stages: the learner runs real commands and reads real diffs themselves. |
+| **Attribution beats code volume.** In AI-assisted work, a README that says why it's designed this way, what you traded off and what AI generated is more persuasive than lots of code. Otherwise the hiring manager credits the AI by default. | "Be ready to say which decisions were yours versus an agent's or a stakeholder's." (Lauren LoPrete, Mercury). "Attributable decisions in AI-assisted work." (Oscar Lozano, Lovable) | Keep the decision ledger (§7) and draft "Design decisions" and "How this was built" from it, never from memory. |
+| **Judgment and leverage: what you rejected.** Whether the repo is really used (stars, forks), whether others build on it, and which obvious approaches you rejected are all evidence of judgment. | | Log rejected options as they happen. Surface real usage in the quarterly review. |
 
 ## 1. The ten practices
 
@@ -98,6 +110,8 @@ Show this as the "Before you ship" list on the lesson page:
 - [ ] A license (MIT if unsure, and say what that means in one line)
 - [ ] A social preview image (the card people see when the link is shared)
 - [ ] Decide: pin it? If yes, which current pin does it replace?
+- [ ] Design decisions and How this was built drafted from the decision ledger
+- [ ] Walkthrough rehearsed (§7): you can walk it end to end in 2 minutes
 
 ## 5. Contributing to other people's projects
 
@@ -125,3 +139,22 @@ Look at the learner's public GitHub, using what's reachable: their profile, pinn
 | Design decisions + AI note in READMEs | | |
 
 "Today's lesson" is the one highest-leverage fix for this quarter. The wrap-up has 2–3 concrete next actions, and a log line dated for the next review.
+
+## 7. Decision ledger and walkthrough rehearsal
+
+**Decision ledger.** During work in a personal or portfolio repo, keep `.builder/DECISIONS.md`. Whenever a consequential choice is made, append one line, as it happens:
+```
+- 2026-10-11 · [you] Chose CSS fade over framer-motion: no new dependency for a simple effect. Rejected: framer-motion (adds ~30 kB).
+- 2026-10-11 · [agent] Proposed localStorage for favorites; [you] accepted after the tradeoff (per-browser only).
+- 2026-10-11 · [stakeholder] PM asked for max 5 saved filters.
+```
+Tag each line `[you]`, `[agent]` or `[stakeholder]`, honestly. If the learner just accepted the agent's suggestion, say so. That's still a decision, but a different one. At README or PR time, draft "Design decisions" and "How this was built" from the ledger. Not for professional repos, unless the team wants it.
+
+**Walkthrough rehearsal.** Before a repo is pinned or linked from the portfolio, add a "Walk it end to end" step to the lesson's wrap-up. The learner practices a 2-minute walkthrough in their own words, and you give gentle feedback:
+1. What it is, and who it's for (one sentence)
+2. Demo: the core interaction
+3. One decision that was theirs, and the alternative they rejected
+4. What AI did, and what they reviewed or changed
+5. What they'd do next
+
+If they can't do part 3 or 4 yet, that gap is next session's lesson.
