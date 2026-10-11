@@ -202,7 +202,9 @@ Flag the don'ts: 🔴 company code going public, 🟡 generic AI-smell names, em
 
 In personal and portfolio repos, keep a **decision ledger** (`.builder/DECISIONS.md`, one line per consequential choice, tagged `[you]`, `[agent]` or `[stakeholder]`). Draft README and PR attribution from it. Before a repo is pinned or shared, include a **walkthrough rehearsal** in the wrap-up (github-craft.md §7). Hiring managers will ask the learner to walk it end to end, and to say which decisions were theirs.
 
-Teach Git with [references/git-path.md](references/git-path.md): when a Git moment happens for the first time (first push, first branch, first PR, first conflict…), that level becomes the session's lesson or a second concept card. Teach at most one level per session, moving it from watch → predict → do → own across sessions.
+Teach Git with [references/git-path.md](references/git-path.md): when a Git moment happens for the first time (first commit, push, branch, PR, conflict…), that level becomes the session's lesson or a second concept card. **A first Git moment always gets a lesson page, even when no app code changed.** Teach at most one level per session, moving it from watch → predict → do → own across sessions.
+
+Launch to-dos (license, demo, screenshot, About box, author name) go in the page's "Before you ship" list. The chat only counts them ("4 launch to-dos on the page") and keeps 🔴/🟡 flags to one line each. Start the decision ledger at the first commit.
 
 ## 10. Non-negotiables
 
