@@ -1,5 +1,7 @@
 # The Git path: learn Git one real moment at a time
 
+> **Adds to the normal workflow.** After the GitHub/Git work, still finish with the lesson page and the short chat (SKILL.md "Finish line"). For a first commit, push or PR, the Git level is the lesson.
+
 Git is where non-engineers feel most lost. It's invisible, the vocabulary is strange, and mistakes feel scary. Don't teach it as a course. Teach **one level when its moment first happens** in real work, as that session's lesson (or as a second concept card when the session's main lesson is about something else).
 
 Track progress in `CONCEPTS.md`, under Engineering workflow and Git & GitHub. A level is done when its concepts are `[x]`, which the learner confirms.

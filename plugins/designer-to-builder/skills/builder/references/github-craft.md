@@ -1,5 +1,7 @@
 # GitHub craft for designers
 
+> **Adds to the normal workflow.** After the GitHub/Git work, still finish with the lesson page and the short chat (SKILL.md "Finish line"). For a first commit, push or PR, the Git level is the lesson.
+
 Distilled from how well-known designers present themselves on GitHub. A designer's GitHub is read as a **taste and credibility signal**, not a volume metric. Hiring managers spend seconds on it, and in 2026 they assume AI could have written anything, so honesty and specificity are the signal.
 
 Apply this **proactively** whenever you create a repo, write a README, commit, open a PR, push something public, or the learner asks about their GitHub. Don't wait to be asked: generate the README sections, PR description and commit messages in this shape, and say in one line what you added and why.

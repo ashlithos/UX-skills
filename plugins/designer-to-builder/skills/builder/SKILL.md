@@ -27,6 +27,15 @@ Read, without narrating it:
 
 **Detect the environment** before the first change: **personal** (more freedom to experiment) or **professional** (company repo: be conservative). Signals of professional: an org remote, CODEOWNERS, CI config, CONTRIBUTING/CLAUDE.md rules, internal package names. If unclear and it matters, ask once.
 
+## Finish line: check before every final reply
+
+Before you send the final reply for any non-trivial task (including Git and GitHub work, reviews and declined requests), check:
+1. **Lesson page built** with `scripts/build-lesson.sh`, and linked in the chat? A first Git moment counts as non-trivial.
+2. **Chat ≤ 5 lines, about 80 words**, with to-do lists and explanations on the page?
+3. **Risks flagged** in one line each, and validation stated honestly?
+
+If any answer is no, fix it before replying. Reference files add to this workflow; they never replace it.
+
 ## Visual-first: teach on the page, keep the chat short
 
 Many designers learn visually and a wall of terminal text is a barrier. Unless the profile says `Teaching format: chat`, **all teaching goes on an HTML lesson page, not in the chat.**
