@@ -1,0 +1,16 @@
+{
+  "name": "product-video",
+  "version": "0.1.0",
+  "description": "Turn a raw screen recording into a short looping product video with designed motion: Material 3 emphasized easing, log-space zooms, a spotlight on the hero moment, dead time cut, a seamless loop.",
+  "author": {
+    "name": "Ashley"
+  },
+  "keywords": [
+    "video",
+    "motion",
+    "portfolio",
+    "screen-recording",
+    "easing",
+    "ffmpeg"
+  ]
+}

@@ -18,6 +18,8 @@ Update later with `/plugin marketplace update ux-skills`.
 | Plugin | What it does | Start with |
 |---|---|---|
 | [designer-to-builder](plugins/designer-to-builder/) | Senior frontend engineer + coach for designers who ship real code with AI and want to understand it | `/builder` |
+| [clean-site](plugins/clean-site/) | Make a site look clean and hold up at every screen size: a small type/color/spacing system, responsive rules, and a six-width audit script | "audit my site", "make it cleaner" |
+| [product-video](plugins/product-video/) | Turn a screen recording into a short looping product video with designed motion (eased zooms, a spotlight on the hero moment, a seamless loop) | share a recording, "make a portfolio video" |
 
 ## Adding a new skill
 
