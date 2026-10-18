@@ -9,6 +9,16 @@
       "name": "designer-to-builder",
       "source": "./plugins/designer-to-builder",
       "description": "Senior frontend engineer + technical coach for designers who ship real code with AI and want to understand it"
+    },
+    {
+      "name": "clean-site",
+      "source": "./plugins/clean-site",
+      "description": "Make a personal website, portfolio or landing page look clean and hold up at every screen size: a small type/color/spacing system, responsive rules, and an audit script that screenshots every page at six widths."
+    },
+    {
+      "name": "product-video",
+      "source": "./plugins/product-video",
+      "description": "Turn a raw screen recording into a short looping product video with designed motion: Material 3 emphasized easing, log-space zooms, a spotlight on the hero moment, dead time cut, a seamless loop."
     }
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "name": "clean-site",
+  "version": "0.1.0",
+  "description": "Make a personal website, portfolio or landing page look clean and hold up at every screen size: a small type/color/spacing system, responsive rules, and an audit script that screenshots every page at six widths.",
+  "author": {
+    "name": "Ashley"
+  },
+  "keywords": [
+    "design",
+    "web",
+    "responsive",
+    "typography",
+    "portfolio",
+    "audit"
+  ]
+}
