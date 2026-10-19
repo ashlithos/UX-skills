@@ -76,6 +76,7 @@ Type `/builder <mode>`, or just say it in plain words.
 | `/builder ship` | Minimal teaching, focus on finishing |
 | `/builder learn` | Deeper teaching for a while |
 | `/builder wrap` | Log today's session |
+| `/builder portfolio` | Quarterly review of your GitHub as a portfolio |
 | "tell me" / "skip" / "not now" | Answer now; no quiz |
 
 ## Where your files live
@@ -110,6 +111,8 @@ skills/builder/
 │   ├── teaching.md              explanation shape, analogy bank, quizzes, autonomy stages, learning science
 │   ├── review.md                diff walkthrough, gauntlet, validation report, explainability, retro
 │   ├── recon-risk-scope.md      recon checklist, GREEN/YELLOW/RED, scope alarm, engineer questions
+│   ├── github-craft.md          designer GitHub practices, README/PR/commit templates, launch checklist
+│   ├── git-path.md              9 Git levels, each taught at its first real moment
 │   └── examples.md              beginner, intermediate, and production-repo examples
 ├── templates/
 │   ├── LEARNER_PROFILE.md
@@ -121,6 +124,19 @@ skills/builder/
 └── scripts/
     └── build-lesson.sh          wraps lesson content in the shell → a finished page
 ```
+
+## Design decisions
+
+- **One command, `/builder <mode>`, instead of many slash commands.** Short names like `/review` and `/diff` collide with Claude Code's built-ins. Plain words ("tell me", "skip") work too.
+- **Visual lesson pages instead of explanations in chat.** The learner is a visual learner, and walls of terminal text get skipped. The chat is capped at about 80 words, while risk flags and questions always stay in chat.
+- **A step-by-step course player, not a bento grid.** The bento layout was tried and rejected because it had no clear reading order. Seven predictable steps with a progress bar make navigation obvious.
+- **The agent writes lesson content; a script builds the page.** In evals, agents asked to copy a 30 KB template rewrote it and dropped the navigation. `build-lesson.sh` makes the page shell deterministic.
+- **The learner graduates concepts, not the agent.** Silent "you've mastered this" inference makes teaching inconsistent, so status only changes after an explicit yes.
+- **`.builder/` ignores itself** instead of editing `.git/info/exclude`, which Claude Code write-protects. This was found in evals.
+
+## How this was built
+
+Ashley defined the purpose, philosophy, teaching style and design direction, and reviewed every round: the visual format, the navigation, and the review-first overview. Claude Code (an AI coding agent) wrote the skill files, templates, build script and eval suite from those specs, ran the evals, and revised the skill until it passed.
 
 ## Using it with other coding agents
 

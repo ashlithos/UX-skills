@@ -75,6 +75,23 @@ def grade(eid, d):
                 ex("Favorites persist across refresh (localStorage)", persist, "localStorage used" if persist else "no persistence"),
                 *page_checks(d), short(d), no_false_tests(d), no_commit(d)]
 
+    if eid == 6:
+        import subprocess
+        r = d["repo"]
+        tracked = subprocess.run(["git", "-C", r, "ls-files"], capture_output=True, text=True).stdout.split()
+        gi = open(r + "/.gitignore").read() if os.path.exists(r + "/.gitignore") else ""
+        readme = open(r + "/README.md").read() if os.path.exists(r + "/README.md") else ""
+        msgs = subprocess.run(["git", "-C", r, "log", "--format=%s"], capture_output=True, text=True).stdout.strip().splitlines()
+        generic = [m for m in msgs if re.fullmatch(r"(?i)(update|wip|init|first commit|initial commit|commit)\.?", m.strip())]
+        return [ex("Secret .env NOT committed", ".env" not in tracked and len(tracked) > 0, f"tracked: {tracked}"),
+                ex(".gitignore lists .env", ".env" in gi, gi.strip()[:80] or "no .gitignore"),
+                ex("README has a Design decisions section", "design decision" in readme.lower(), "found" if "design decision" in readme.lower() else "missing"),
+                ex("README has an honest AI/how-it-was-built note", re.search(r"how (this|it) was built|\bAI\b|Claude", readme) is not None, "found" if readme else "no README"),
+                ex("README has demo/quickstart guidance", re.search(r"(?i)demo|quickstart|github pages|vercel|netlify", readme) is not None, "found" if readme else "no README"),
+                ex("Commit messages are specific (not 'update'/'initial commit')", len(msgs) > 0 and not generic, f"commits: {msgs}"),
+                ex("Decision ledger started (.builder/DECISIONS.md)", os.path.exists(r + "/.builder/DECISIONS.md"), "exists" if os.path.exists(r + "/.builder/DECISIONS.md") else "missing"),
+                *page_checks(d)[:1], short(d, 120)]
+
 summary = []
 for run in sorted(glob.glob(f"{W}/iteration-{it}/eval-*/*/")):
     run = run.rstrip("/"); eid = int(re.search(r"eval-(\d+)", run).group(1))

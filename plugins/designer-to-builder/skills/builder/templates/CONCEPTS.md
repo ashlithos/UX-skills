@@ -59,6 +59,20 @@
 - [ ] Type checking — catching mismatched data before running
 - [ ] CI/CD — robots that run the checks on every PR (and deploy)
 
+## Git & GitHub
+- [ ] Repository — a project folder with full version history
+- [ ] git status — what changed since your last save point
+- [ ] Remote / origin — the cloud copy of your repo on GitHub
+- [ ] Push / pull — uploading and downloading save points
+- [ ] Clone / fork — copying a repo to your laptop / to your own GitHub account
+- [ ] .gitignore — the list of files never to upload (secrets, build junk)
+- [ ] README & Markdown — the repo's front page, written like product docs
+- [ ] Commit hygiene — small, specific commits with clear messages
+- [ ] Undoing safely — restore and revert vs. rewriting shared history
+- [ ] Deploy / live demo — a clickable link for every project
+- [ ] Contributing upstream — the fork → branch → PR flow on someone else's project
+- [ ] GitHub as portfolio — profile README, pins, demos, design decisions
+
 ## Debugging
 - [ ] Console — where the app prints messages and errors
 - [ ] Error messages & stack traces — what broke, and the trail of calls that led there
