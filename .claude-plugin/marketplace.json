@@ -19,6 +19,14 @@
       "name": "product-video",
       "source": "./plugins/product-video",
       "description": "Turn a raw screen recording into a short looping product video with designed motion: Material 3 emphasized easing, log-space zooms, a spotlight on the hero moment, dead time cut, a seamless loop."
+    },
+    {
+      "name": "ux-competitive-research",
+      "source": {
+        "source": "github",
+        "repo": "ashlithos/ux-competitive-research"
+      },
+      "description": "Turn a UX question (\"how are other products solving X?\") into a sourced competitive research report: one HTML page with real product screenshots, charts, CUJs, design principles and open questions."
     }
   ]
 }
