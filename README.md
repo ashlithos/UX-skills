@@ -20,6 +20,7 @@ Update later with `/plugin marketplace update ux-skills`.
 | [designer-to-builder](plugins/designer-to-builder/) | Senior frontend engineer + coach for designers who ship real code with AI and want to understand it | `/builder` |
 | [clean-site](plugins/clean-site/) | Make a site look clean and hold up at every screen size: a small type/color/spacing system, responsive rules, and a six-width audit script | "audit my site", "make it cleaner" |
 | [product-video](plugins/product-video/) | Turn a screen recording into a short looping product video with designed motion (eased zooms, a spotlight on the hero moment, a seamless loop) | share a recording, "make a portfolio video" |
+| [ux-competitive-research](https://github.com/ashlithos/ux-competitive-research) | Turn "how are other products solving X?" into a sourced competitive research report: one HTML page with real screenshots, charts, CUJs and principles | "research how products handle X" |
 
 ## Adding a new skill
 
